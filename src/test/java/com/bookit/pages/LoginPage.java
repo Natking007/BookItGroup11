@@ -19,6 +19,9 @@ public class LoginPage extends BasePage{
         this.driver = Driver.getDriver();
     }
 
+    /**
+     * Instantiated wait method, incase if we need it in page object
+     */
     WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
 
     @FindBy(xpath = "//input[@placeholder='email']")
@@ -31,12 +34,20 @@ public class LoginPage extends BasePage{
     public WebElement loginButton;
 
 
+    /**
+     * Login with provided parameters
+     * When called the method, you have to provide:
+     * @param : @Username & @Email
+     */
     public void loginViaUserEntry(String username, String password){
         usernameInput.sendKeys(username);
         passwordInput.sendKeys(password);
         loginButton.click();
     }
 
+    /**
+     * Login with password from config file
+     */
     public void loginViaConfig(){
         usernameInput.sendKeys(ConfigurationReader.getProperty("group.username"));
         passwordInput.sendKeys(ConfigurationReader.getProperty("group.password"));
@@ -44,8 +55,9 @@ public class LoginPage extends BasePage{
     }
 
     /**
-     * TODO :Duplicate code. Improve this. Add ConfigurationReader to read URL
-     * @return
+     * Go to Login page
+     * Wait for UserNameInput to be visible
+     * Return the Login Page itself, so that we can use fluid syntax
      */
     public LoginPage openLoginPage() {
 
